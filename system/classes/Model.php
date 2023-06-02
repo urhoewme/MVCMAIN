@@ -12,7 +12,8 @@ abstract class Model
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_UNIQUE = 'unique';
-    public function loadData($data)
+    public array $errors = [];
+    public function loadData($data): void
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
@@ -32,9 +33,7 @@ abstract class Model
     {
         return $this->labels()[$attribute] ?? $attribute;
     }
-
-    public array $errors = [];
-    public function validate()
+    public function validate(): bool
     {
         foreach ($this->rules() as $attribute => $rules) {
             $value = $this->{$attribute};
@@ -77,7 +76,7 @@ abstract class Model
         return empty($this->errors);
     }
 
-    private function addErrorForRule(string $attribute, string $rule, $params = [])
+    private function addErrorForRule(string $attribute, string $rule, $params = []): void
     {
         $message = $this->errorMessages()[$rule] ?? '';
         foreach ($params as $key => $value) {
@@ -85,12 +84,12 @@ abstract class Model
         }
         $this->errors[$attribute][] = $message;
     }
-    public function addError(string $attribute, string $message)
+    public function addError(string $attribute, string $message): void
     {
         $this->errors[$attribute][] = $message;
     }
 
-    public function errorMessages()
+    public function errorMessages(): array
     {
         return [
             self::RULE_REQUIRED => 'This field is required !',

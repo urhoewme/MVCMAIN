@@ -8,9 +8,9 @@ class m0003_customers
         $SQL = "CREATE TABLE customers (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 email VARCHAR(255) NOT NULL,
-                firstname VARCHAR(255) NOT NULL,
-                status TINYINT DEFAULT 0,
-                gender TINYINT DEFAULT 0,
+                name VARCHAR(255) NOT NULL,
+                status VARCHAR(255) NOT NULL ,
+                gender VARCHAR(255) NOT NULL ,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )   ENGINE=INNODB;";
         $db->pdo->exec($SQL);

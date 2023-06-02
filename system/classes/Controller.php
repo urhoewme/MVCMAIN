@@ -10,16 +10,16 @@ class Controller
     public string $layout = 'main';
     public string $action = '';
     protected array $middlewares = [];
-    public function setLayout($layout)
+    public function setLayout($layout): void
     {
         $this->layout = $layout;
     }
-    public function render($view, $params = [])
+    public function render($view, $params = []): array|false|string
     {
         return Application::$app->view->renderView($view, $params);
     }
 
-    public function registerMiddleware(BaseMiddleware $middleware)
+    public function registerMiddleware(BaseMiddleware $middleware): void
     {
         $this->middlewares[] = $middleware;
     }

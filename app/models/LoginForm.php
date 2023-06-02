@@ -3,6 +3,7 @@
 namespace app\app\models;
 
 use app\system\Application;
+use app\system\classes\Logger;
 use app\system\classes\Model;
 
 class LoginForm extends Model
@@ -13,7 +14,7 @@ class LoginForm extends Model
     public function rules(): array
     {
         return [
-            'email' => [self::RULE_REQUIRED,self::RULE_EMAIL],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'password' => [self::RULE_REQUIRED]
         ];
     }
@@ -28,6 +29,7 @@ class LoginForm extends Model
 
     public function login()
     {
+        $logger = new Logger();
         $user = User::findOne(['email' => $this->email]);
         if (!$user) {
             $this->addError('email', 'User with this email does not exist');
@@ -37,6 +39,6 @@ class LoginForm extends Model
             $this->addError('password', 'Incorrect password');
             return false;
         }
-        return Application::$app->login($user);
+        return $logger->login($user);
     }
 }

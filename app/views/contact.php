@@ -1,23 +1,17 @@
 <?php
+/** @var $model app\app\models\ContactForm */
+
+use app\system\form\TextareaField;
 
 $this->title = 'Contact Us';
 ?>
 
 <h1>Contact Us</h1>
 
-<form action="" method="post">
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Subject</label>
-        <input type="text" class="form-control" name="subject" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Body</label>
-        <textarea class="form-control" name="body"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<?php $form = \app\system\form\Form::begin('', 'post') ?>
+<?php echo $form->field($model, 'subject') ?>
+<?php echo $form->field($model, 'email') ?>
+<?php echo new TextareaField($model, 'body')?>
+<button type="submit" class="btn btn-primary mt-2">Submit</button>
+<?php \app\system\form\Form::end(); ?>
+

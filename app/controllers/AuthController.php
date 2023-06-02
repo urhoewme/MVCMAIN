@@ -6,6 +6,7 @@ use app\app\models\LoginForm;
 use app\app\models\User;
 use app\system\Application;
 use app\system\classes\Controller;
+use app\system\classes\Logger;
 use app\system\classes\Request;
 use app\system\classes\Response;
 use app\system\middlewares\AuthMiddleware;
@@ -21,13 +22,16 @@ class AuthController extends Controller
     public function login(Request $request, Response $response)
     {
         $loginForm = new LoginForm();
-        if ($request->isPost()) {
-            $loginForm->loadData($request->getBody());
-            if ($loginForm->validate() && $loginForm->login()) {
-                $response->redirect('/');
-                return;
-            }
+        $loginForm->loadData($request->getBody());
+        if ($loginForm->validate() && $loginForm->login()) {
+            $response->redirect('/');
+            return;
         }
+    }
+
+    public function renderLogin()
+    {
+        $loginForm = new LoginForm();
         $this->setLayout('auth');
         return $this->render('login', [
             'model' => $loginForm,
@@ -37,18 +41,23 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $user = new User();
-        if ($request->isPost()) {
-            $user->loadData($request->getBody());
 
-            if ($user->validate() && $user->save()) {
-                Application::$app->session->setFlash('success', 'Thanks for registration !');
-                self::login($request, Application::$app->response);
-                exit;
-            }
-            return $this->render('register', [
-                'model' => $user
-            ]);
+        $user->loadData($request->getBody());
+
+        if ($user->validate() && $user->save()) {
+            Application::$app->session->setFlash('success', 'Thanks for registration !');
+            self::login($request, Application::$app->response);
+            exit;
         }
+        return $this->render('register', [
+            'model' => $user
+        ]);
+
+    }
+
+    public function renderRegister()
+    {
+        $user = new User();
         $this->setLayout('auth');
         return $this->render('register', [
             'model' => $user
@@ -57,7 +66,8 @@ class AuthController extends Controller
 
     public function logout(Request $request, Response $response)
     {
-        Application::$app->logout();
+        $logger = new Logger();
+        $logger->logout();
         $response->redirect('/');
     }
 
