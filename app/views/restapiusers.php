@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -20,12 +19,10 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="/delete" method="post">
+
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Checkbox
-                                </th>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -34,32 +31,28 @@
                             </tr>
                             </thead>
                             <tbody>
-
-                            <button name="delete_mux" type="submit" class="btn btn-danger mb-2"
-                                    onclick="return confirm('Are you sure ?')">DELETE
-                            </button>
-                            <tr>
-                                {% for param in name %}
-                                <td>
-                                    <input type="checkbox" name="record[]" value="{{ param.id }}">
-                                </td>
-                                <td>{{ param.id }}</td>
-                                <td>{{ param.name }}</td>
-                                <td>{{ param.email }}</td>
-                                <td>{{ param.status }}</td>
-                                <td>{{ param.gender }}</td>
-                                <td>
-                                    <a href="/edit?id={{ param.id }}" class="btn btn-primary">EDIT</a>
-                            </tr>
-                            {% endfor %}
+                            <?php foreach ($params as $user): ?>
+                                <tr>
+                                    <td><?= $user['id'] ?></td>
+                                    <td><?= $user['name'] ?></td>
+                                    <td><?= $user['email'] ?></td>
+                                    <td><?= $user['gender'] ?></td>
+                                    <td><?= $user['status'] ?></td>
+                                    <td>
+                                        <a href="/editapi?id=<?= $user['id'] ?>" class="btn btn-primary">EDIT</a>
+                                        <form action="/deleteapi" method="post">
+                                            <input hidden="hidden" name="id" type="text" value="<?= $user['id'] ?>">
+                                            <button class="btn btn-danger" type="submit">DELETE</button>
+                                        </form>
+<!--                                        <a href="/deleteapi" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>-->
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
-                    </form>
+
                 </div>
             </div>
-            {% for i in 1..pages %}
-                <a class="btn btn-primary mt-2" href="?page={{ i }}">{{ i }}</a>
-            {% endfor %}
         </div>
     </div>
 </div>

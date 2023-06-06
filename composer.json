@@ -8,6 +8,7 @@
     "require": {
         "vlucas/phpdotenv": "^5.5",
       "ext-pdo": "*",
-        "twig/twig": "^3.6"
+        "twig/twig": "^3.6",
+      "ext-curl": "*"
     }
 }

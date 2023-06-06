@@ -11,6 +11,10 @@ use app\system\classes\Response;
 
 class SiteController extends Controller
 {
+    public function usersApi()
+    {
+        return $this->render('restapiusers');
+    }
     public function home()
     {
         $params = [

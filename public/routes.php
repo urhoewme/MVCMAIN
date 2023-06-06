@@ -6,6 +6,7 @@ use app\app\controllers\UserController;
 use app\system\Application;
 use app\app\controllers\SiteController;
 use app\app\controllers\AuthController;
+use \app\app\controllers\ApiController;
 
 
 
@@ -16,6 +17,14 @@ $app = new Application(dirname(__DIR__), $GLOBALS['config']);
 $app->router->get('/', [SiteController::class, 'home']);
 $app->router->get('/contact', [SiteController::class, 'renderContact']);
 $app->router->post('/contact', [SiteController::class, 'contact']);
+
+$app->router->get('/restapiusers', [ApiController::class, 'index']);
+$app->router->get('/createapi', [ApiController::class, 'renderCreate']);
+$app->router->post('/createapi', [ApiController::class, 'create']);
+$app->router->post('/deleteapi', [ApiController::class, 'delete']);
+$app->router->get('/editapi', [ApiController::class, 'edit']);
+$app->router->post('/editapi', [ApiController::class, 'editHandle']);
+
 
 $app->router->get('/users', [UserController::class, 'users']);
 $app->router->get('/create', [UserController::class, 'create']);

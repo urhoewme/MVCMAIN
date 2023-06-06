@@ -1,7 +1,6 @@
 <?php
+
 use app\system\Application;
-
-
 
 
 //echo "<pre>";
@@ -32,32 +31,36 @@ use app\system\Application;
                     <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/users">Customers</a>
+                    <a class="nav-link active" href="/restapiusers">Customers REST</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/users">Customers DB</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/contact">Contact</a>
                 </li>
             </ul>
             <?php if (Application::isGuest()): ?>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/login">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/register">Register</a>
-                </li>
-            </ul>
-            <?php else:  ?>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/logout">Welcome <?php echo Application::$app->user->getDisplayName() ?>
-                        (Logout)
-                    </a>
-                </li>
-            </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/register">Register</a>
+                    </li>
+                </ul>
+            <?php else: ?>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           href="/logout">Welcome <?php echo Application::$app->user->getDisplayName() ?>
+                            (Logout)
+                        </a>
+                    </li>
+                </ul>
             <?php endif; ?>
         </div>
     </div>

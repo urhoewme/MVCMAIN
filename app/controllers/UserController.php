@@ -79,10 +79,7 @@ class UserController extends Controller
         $customer = new Customer();
         $params = $customer->findAll();
         $template = $twig->load('users.twig');
-//        echo '<pre>';
-//        var_dump($params);
-//        echo '<pre>';
-//        exit;
         return $template->render(['name' => $params[0], 'pages' => $params[1]]);
+
     }
 }
