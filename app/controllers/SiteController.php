@@ -20,9 +20,6 @@ class SiteController extends Controller
         $params = [
             'name' => 'Yauheni'
         ];
-        if ( (new CustomerSeeder())->seed() ) {
-            return $this->render('home', $params);
-        }
         return $this->render('home', $params);
     }
 

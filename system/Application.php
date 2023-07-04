@@ -40,8 +40,6 @@ class Application
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
-
-        $this->customerSeeder = new CustomerSeeder();
         $this->db = new Database($config['db']);
 
 
