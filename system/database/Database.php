@@ -8,11 +8,11 @@ class Database
 {
     public \PDO $pdo;
 
-    public function __construct(array $config)
+    public function __construct()
     {
-        $dsn = $config['dsn'] ?? '';
-        $user = $config['user'] ?? '';
-        $password = $config['password'] ?? '';
+        $dsn = $_ENV['DB_DSN'];
+        $user = $_ENV['DB_USER'];
+        $password = $_ENV['DB_PASSWORD'];
         $this->pdo = new \PDO($dsn, $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }

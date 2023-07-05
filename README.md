@@ -2,7 +2,7 @@
 
 # STEPS
 ## 1
-composer install | jopa
+composer install
 ## 2
 cd public
 ## 3

@@ -3,7 +3,7 @@
 namespace app\app\models;
 
 use app\system\Application;
-use app\system\classes\Logger;
+use app\system\classes\Login;
 use app\system\classes\Model;
 
 class LoginForm extends Model
@@ -29,7 +29,7 @@ class LoginForm extends Model
 
     public function login()
     {
-        $logger = new Logger();
+        $logger = new Login();
         $user = User::findOne(['email' => $this->email]);
         if (!$user) {
             $this->addError('email', 'User with this email does not exist');

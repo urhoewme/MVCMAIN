@@ -8,25 +8,20 @@ use app\system\classes\Controller;
 use app\system\classes\Request;
 use app\system\classes\Response;
 
-class ApiController extends Controller
+class CustomerController extends Controller
 {
     public function index()
     {
         $users = APIHandler::connect('https://gorest.co.in/public/v2/users', 'get');
-        return $this->render('restapiusers', $users);
+        return $this->render('customersRest', $users);
     }
 
     public function create(Request $request, Response $response)
     {
-        $data = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'gender' => $_POST['gender'],
-            'status' => $_POST['status'],
-        ];
+        $data = $request->getBody();
         APIHandler::$user_data = $data;
         APIHandler::connect('https://gorest.co.in/public/v2/users', 'post');
-        $response->redirect('/restapiusers');
+        $response->redirect('/api/customers');
     }
 
     public function renderCreate()
@@ -39,27 +34,22 @@ class ApiController extends Controller
         $id = $_POST['id'];
         APIHandler::$user_data = ['id' => $id];
         APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'delete');
-        $response->redirect('/restapiusers');
+        $response->redirect('/api/customers');
     }
 
     public function edit()
     {
         $id = $_GET['id'];
         $params = APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'get');
-        return $this->render('editapi', $params);
+        return $this->render('editRest', $params);
     }
 
     public function editHandle(Request $request, Response $response)
     {
         $id = $_GET['id'];
-        $data = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'gender' => $_POST['gender'],
-            'status' => $_POST['status'],
-        ];
+        $data = $request->getBody();
         APIHandler::$user_data = $data;
         APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'put');
-        $response->redirect('/restapiusers');
+        $response->redirect('/api/customers');
     }
 }

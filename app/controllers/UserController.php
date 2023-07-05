@@ -37,14 +37,9 @@ class UserController extends Controller
         return $this->render('edit', $params);
     }
 
-    public function editUpdate()
+    public function editUpdate(Request $request)
     {
-        $params = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'gender' => $_POST['gender'],
-            'status' => $_POST['status']
-        ];
+        $params = $request->getBody();
         $customer = new Customer();
         $customer->update($params);
         return (new Response())->redirect('/users');
@@ -62,13 +57,6 @@ class UserController extends Controller
         $customer->deleteMultiple();
         return (new Response())->redirect('/users');
     }
-
-//    public function users()
-//    {
-//        $customer = new Customer();
-//        $params = $customer->findAll();
-//        return $this->render('users', $params);
-//    }
     public function users()
     {
         $loader = new FilesystemLoader( '../app/views');

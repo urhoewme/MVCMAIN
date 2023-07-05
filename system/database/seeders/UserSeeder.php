@@ -41,16 +41,9 @@ class UserSeeder
         'inactive'
     ];
 
-    public function run()
+    public function run(): void
     {
-        $config = [
-            'db' => [
-                'dsn' => $_ENV['DB_DSN'],
-                'user' => $_ENV['DB_USER'],
-                'password' => $_ENV['DB_PASSWORD'],
-            ]
-        ];
-        $app = new Application(dirname(__DIR__), $config);
+        $app = new Application(dirname(__DIR__));
         for($i = 0; $i<10; $i++)
         {
             $customer = new Customer();

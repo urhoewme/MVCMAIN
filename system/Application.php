@@ -31,7 +31,7 @@ class Application
     public View $view;
     public ?Controller $controller = null;
 
-    public function __construct($rootPath, array $config)
+    public function __construct($rootPath)
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
@@ -40,7 +40,7 @@ class Application
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
-        $this->db = new Database($config['db']);
+        $this->db = new Database();
 
 
         $primaryValue = $this->session->get('user');
@@ -77,20 +77,4 @@ class Application
     {
         $this->controller = $controller;
     }
-
-//    public function login(DbModel $user): bool
-//    {
-//        $this->user = $user;
-//        $primaryKey = $user->primaryKey();
-//        $primaryValue = $user->{$primaryKey};
-//        $value = $user->{$primaryKey};
-//        Application::$app->session->set('user', $value);
-//        return true;
-//    }
-//
-//    public function logout()
-//    {
-//        $this->user = null;
-//        self::$app->session->remove('user');
-//    }
 }

@@ -6,7 +6,7 @@ use app\app\models\LoginForm;
 use app\app\models\User;
 use app\system\Application;
 use app\system\classes\Controller;
-use app\system\classes\Logger;
+use app\system\classes\Login;
 use app\system\classes\Request;
 use app\system\classes\Response;
 use app\system\middlewares\AuthMiddleware;
@@ -66,8 +66,8 @@ class AuthController extends Controller
 
     public function logout(Request $request, Response $response)
     {
-        $logger = new Logger();
-        $logger->logout();
+        $login = new Login();
+        $login->logout();
         $response->redirect('/');
     }
 
