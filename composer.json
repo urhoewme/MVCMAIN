@@ -10,5 +10,15 @@
       "ext-pdo": "*",
         "twig/twig": "^3.6",
       "ext-curl": "*"
-    }
+    },
+  "scripts": {
+    "migrations": "php ./system/migrations.php",
+    "seed": "php ./system/seeder.php",
+    "localhost": "php -t ./public -S localhost:8080",
+    "prepare": [
+      "@migrations",
+      "@seed",
+      "@localhost"
+    ]
+  }
 }

@@ -15,12 +15,12 @@ use Twig\Loader\FilesystemLoader;
 
 class UserController extends Controller
 {
-    public function create(Request $request, Response $response)
+    public function displayCreate(Request $request, Response $response)
     {
         return $this->render('create');
     }
 
-    public function handleCreate(Request $request, Response $response)
+    public function create(Request $request, Response $response)
     {
         $customer = new Customer();
         $customer->loadData($request->getBody());
@@ -29,7 +29,7 @@ class UserController extends Controller
         }
     }
 
-    public function edit()
+    public function displayEdit()
     {
         $id = $_GET['id'];
         $customer = new Customer();
@@ -37,7 +37,7 @@ class UserController extends Controller
         return $this->render('edit', $params);
     }
 
-    public function editUpdate(Request $request)
+    public function edit(Request $request)
     {
         $params = $request->getBody();
         $customer = new Customer();
@@ -45,7 +45,7 @@ class UserController extends Controller
         return (new Response())->redirect('/users');
     }
 
-    public function deleteUser()
+    public function delete()
     {
         $customer = new Customer();
         $customer->delete();

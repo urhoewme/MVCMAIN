@@ -5,7 +5,7 @@ use app\app\models\Customer;
 use app\system\Application;
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable('../');
+$dotenv = Dotenv::createImmutable(dirname(__DIR__, 3), ".env");
 $dotenv->load();
 
 class UserSeeder

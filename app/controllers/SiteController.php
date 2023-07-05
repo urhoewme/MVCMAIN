@@ -11,10 +11,6 @@ use app\system\classes\Response;
 
 class SiteController extends Controller
 {
-    public function usersApi()
-    {
-        return $this->render('restapiusers');
-    }
     public function home()
     {
         $params = [
@@ -33,7 +29,7 @@ class SiteController extends Controller
         }
     }
 
-    public function renderContact()
+    public function display()
     {
         $contact = new ContactForm();
         return $this->render('contact', [

@@ -24,7 +24,7 @@ class CustomerController extends Controller
         $response->redirect('/api/customers');
     }
 
-    public function renderCreate()
+    public function display()
     {
         return $this->render('create');
     }
@@ -44,7 +44,7 @@ class CustomerController extends Controller
         return $this->render('editRest', $params);
     }
 
-    public function editHandle(Request $request, Response $response)
+    public function handleEdit(Request $request, Response $response)
     {
         $id = $_GET['id'];
         $data = $request->getBody();
