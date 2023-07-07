@@ -3,8 +3,6 @@
 ## Copy .env-example content to .env file
 ## Run docker container
 ## `docker compose up -d`
-## Install dependencies
+## Install dependencies and prepare db (FROM PROJECT ROOT)
 ## `docker compose exec app composer install`
-## Prepare database
-## `docker compose exec app composer prepare`
 ## Go on `localhost:8080`

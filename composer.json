@@ -12,6 +12,7 @@
       "ext-curl": "*"
     },
   "scripts": {
+    "post-install-cmd": "@prepare",
     "migrations": "php ./system/migrations.php",
     "seed": "php ./system/seeder.php",
     "localhost": "php -t ./public -S localhost:8080",
