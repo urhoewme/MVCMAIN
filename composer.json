@@ -17,8 +17,7 @@
     "localhost": "php -t ./public -S localhost:8080",
     "prepare": [
       "@migrations",
-      "@seed",
-      "@localhost"
+      "@seed"
     ]
   }
 }
