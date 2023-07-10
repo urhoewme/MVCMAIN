@@ -1,6 +1,5 @@
 # MVCMAIN
 
-## Copy .env-example content to .env file
 ## Run docker container
 ## `docker compose up -d`
 ## Install dependencies and prepare db (FROM PROJECT ROOT)

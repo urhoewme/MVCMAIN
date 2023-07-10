@@ -16,7 +16,9 @@
     "migrations": "php ./system/migrations.php",
     "seed": "php ./system/seeder.php",
     "localhost": "php -t ./public -S localhost:8080",
+    "env": "cp -n .env-example .env",
     "prepare": [
+      "@env",
       "@migrations",
       "@seed"
     ]
