@@ -2,54 +2,71 @@
 
 namespace app\app\controllers;
 
+require_once '../vendor/autoload.php';
+
 use app\app\models\Customer;
-use app\system\classes\APIHandler;
 use app\system\classes\Controller;
 use app\system\classes\Request;
 use app\system\classes\Response;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
+
 
 class CustomerController extends Controller
 {
-    public function index()
-    {
-        $users = APIHandler::connect('https://gorest.co.in/public/v2/users', 'get');
-        return $this->render('customersRest', $users);
-    }
-
-    public function create(Request $request, Response $response)
-    {
-        $data = $request->getBody();
-        APIHandler::$user_data = $data;
-        APIHandler::connect('https://gorest.co.in/public/v2/users', 'post');
-        $response->redirect('/api/customers');
-    }
-
-    public function display()
+    public function index(Request $request, Response $response)
     {
         return $this->render('create');
     }
 
-    public function delete(Request $request, Response $response)
+    public function create(Request $request, Response $response)
     {
-        $id = $_POST['id'];
-        APIHandler::$user_data = ['id' => $id];
-        APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'delete');
-        $response->redirect('/api/customers');
+        $customer = new Customer();
+        $customer->loadData($request->getBody());
+        if ($customer->save()) {
+            $response->redirect('/users');
+        }
     }
 
-    public function edit()
+    public function show()
     {
         $id = $_GET['id'];
-        $params = APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'get');
-        return $this->render('editRest', $params);
+        $customer = new Customer();
+        $params = $customer->findById($id);
+        return $this->render('edit', $params);
     }
 
-    public function handleEdit(Request $request, Response $response)
+    public function update(Request $request)
     {
-        $id = $_GET['id'];
-        $data = $request->getBody();
-        APIHandler::$user_data = $data;
-        APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'put');
-        $response->redirect('/api/customers');
+        $params = $request->getBody();
+        $customer = new Customer();
+        $customer->update($params);
+        return (new Response())->redirect('/users');
+    }
+
+    public function destroy()
+    {
+        $customer = new Customer();
+        $customer->delete();
+        return (new Response())->redirect('/users');
+    }
+    public function delete()
+    {
+        $customer = new Customer();
+        $customer->deleteMultiple();
+        return (new Response())->redirect('/users');
+    }
+    public function users()
+    {
+        $loader = new FilesystemLoader( '../app/views');
+        $twig = new Environment($loader, [
+            'debug' => true,
+        ]);
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $customer = new Customer();
+        $params = $customer->findAll();
+        $template = $twig->load('users.twig');
+        return $template->render(['name' => $params[0], 'pages' => $params[1]]);
     }
 }

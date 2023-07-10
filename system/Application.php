@@ -2,7 +2,7 @@
 
 namespace app\system;
 
-use app\app\models\User;
+use app\app\models\Admin;
 use app\app\seeders\CustomerSeeder;
 use app\system\classes\Controller;
 use app\system\classes\Request;
@@ -45,7 +45,7 @@ class Application
 
         $primaryValue = $this->session->get('user');
         if ($primaryValue) {
-            $this->user = (new User())->findOne(['id' => $primaryValue]);
+            $this->user = (new Admin())->findOne(['id' => $primaryValue]);
         } else {
             $this->user = null;
         }

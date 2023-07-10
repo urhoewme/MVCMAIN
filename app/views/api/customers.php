@@ -31,7 +31,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($params as $user): ?>
+                            <?php /** @var TYPE_NAME $params */
+                            foreach ($params as $user): ?>
                                 <tr>
                                     <td><?= $user['id'] ?></td>
                                     <td><?= $user['name'] ?></td>

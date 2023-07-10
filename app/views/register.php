@@ -1,5 +1,5 @@
 <?php
-/** @var $model \app\app\models\User */
+/** @var $model \app\app\models\Admin */
 ?>
 
 <h1>Register</h1>

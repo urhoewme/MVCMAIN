@@ -3,7 +3,7 @@
 
 
 use app\system\Application;
-use app\app\models\User;
+use app\app\models\Admin;
 require_once '../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();

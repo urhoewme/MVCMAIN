@@ -23,7 +23,8 @@
                     <form action="" method="post">
                         <div class="mb-3">
                             <label>Name</label>
-                            <input value="<?= $params['name'] ?>" name="name" required type="text" class="form-control">
+                            <input value="<?= /** @var TYPE_NAME $params */
+                            $params['name'] ?>" name="name" required type="text" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label>Mail</label>

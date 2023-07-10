@@ -11,31 +11,11 @@ use app\system\classes\Response;
 
 class SiteController extends Controller
 {
-    public function home()
+    public function index()
     {
         $params = [
             'name' => 'Yauheni'
         ];
         return $this->render('home', $params);
     }
-
-    public function contact(Request $request, Response $response)
-    {
-        $contact = new ContactForm();
-        $contact->loadData($request->getBody());
-        if ($contact->validate() && $contact->send()) {
-            Application::$app->session->setFlash('success', 'Thanks for your feedback');
-            $response->redirect('/contact');
-        }
-    }
-
-    public function display()
-    {
-        $contact = new ContactForm();
-        return $this->render('contact', [
-            'model' => $contact
-        ]);
-    }
-
-
 }
