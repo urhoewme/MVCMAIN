@@ -15,7 +15,7 @@
             <div class="card mt-4">
                 <div class="card-header">
                     <h4>Customer Details
-                        <a class="btn btn-primary float-end" href="/api/create">Add customer</a>
+                        <a class="btn btn-primary float-end" href="/api/customers/create">Add customer</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -40,8 +40,8 @@
                                     <td><?= $user['gender'] ?></td>
                                     <td><?= $user['status'] ?></td>
                                     <td>
-                                        <a href="/api/edit?id=<?= $user['id'] ?>" class="btn btn-primary">EDIT</a>
-                                        <form action="/api/delete" method="post">
+                                        <a href="/api/customers/edit?id=<?= $user['id'] ?>" class="btn btn-primary">EDIT</a>
+                                        <form action="/api/customers/delete" method="post">
                                             <input hidden="hidden" name="id" type="text" value="<?= $user['id'] ?>">
                                             <button class="btn btn-danger" type="submit">DELETE</button>
                                         </form>

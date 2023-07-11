@@ -8,7 +8,7 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, 3), ".env");
 $dotenv->load();
 
-class UserSeeder
+class CustomerSeeder
 {
     public array $names = [
         'Andrew',

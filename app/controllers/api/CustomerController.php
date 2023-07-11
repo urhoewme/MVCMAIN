@@ -8,7 +8,7 @@ use app\system\classes\Request;
 use app\system\classes\Response;
 use app\system\middlewares\AuthMiddleware;
 
-class RestController extends Controller
+class CustomerController extends Controller
 {
 
     public function __construct()
