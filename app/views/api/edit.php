@@ -16,14 +16,15 @@
             <div class="card mt-4">
                 <div class="card-header">
                     <h4>Customer Edit
-                        <a href="/restapiusers" class="btn btn-danger float-end">BACK</a>
+                        <a href="/api/customers" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
                     <form action="" method="post">
                         <div class="mb-3">
                             <label>Name</label>
-                            <input value="<?= $params['name'] ?>" name="name" required type="text" class="form-control">
+                            <input value="<?= /** @var TYPE_NAME $params */
+                            $params['name'] ?>" name="name" required type="text" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label>Mail</label>

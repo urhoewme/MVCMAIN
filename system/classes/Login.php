@@ -6,7 +6,7 @@ use AllowDynamicProperties;
 use app\system\Application;
 use app\system\database\DbModel;
 
-#[AllowDynamicProperties] class Logger
+#[AllowDynamicProperties] class Login
 {
     public function login(DbModel $user): bool
     {

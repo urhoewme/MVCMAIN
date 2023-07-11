@@ -2,7 +2,7 @@
 
 namespace app\system;
 
-use app\app\models\User;
+use app\app\models\Admin;
 use app\app\seeders\CustomerSeeder;
 use app\system\classes\Controller;
 use app\system\classes\Request;
@@ -31,7 +31,7 @@ class Application
     public View $view;
     public ?Controller $controller = null;
 
-    public function __construct($rootPath, array $config)
+    public function __construct($rootPath)
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
@@ -40,14 +40,12 @@ class Application
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
-
-        $this->customerSeeder = new CustomerSeeder();
-        $this->db = new Database($config['db']);
+        $this->db = new Database();
 
 
         $primaryValue = $this->session->get('user');
         if ($primaryValue) {
-            $this->user = (new User())->findOne(['id' => $primaryValue]);
+            $this->user = (new Admin())->findOne(['id' => $primaryValue]);
         } else {
             $this->user = null;
         }
@@ -63,7 +61,7 @@ class Application
         try {
             echo $this->router->resolve();
         } catch (Exception $e) {
-            $this->response->setStatusCode($e->getCode());
+            $this->response->setStatusCode(500);
             echo $this->view->renderView('_error', [
                 'exception' => $e
             ]);
@@ -79,20 +77,4 @@ class Application
     {
         $this->controller = $controller;
     }
-
-//    public function login(DbModel $user): bool
-//    {
-//        $this->user = $user;
-//        $primaryKey = $user->primaryKey();
-//        $primaryValue = $user->{$primaryKey};
-//        $value = $user->{$primaryKey};
-//        Application::$app->session->set('user', $value);
-//        return true;
-//    }
-//
-//    public function logout()
-//    {
-//        $this->user = null;
-//        self::$app->session->remove('user');
-//    }
 }

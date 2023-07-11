@@ -10,7 +10,6 @@ class APIHandler
     {
         $curl_handle = require '../cfg/api.php';
 
-        // Set the curl URL option
         curl_setopt($curl_handle, CURLOPT_URL, $url);
 
         switch ($method) {

@@ -47,12 +47,6 @@
                                     <td><?= $param->status ?></td>
                                     <td>
                                         <a href="/edit?id=<?= $param->id; ?>" class="btn btn-primary">EDIT</a>
-<!--                                        <form action="/delete?id=--><?php //= $param->id; ?><!--" method="post">-->
-<!--                                            <button type="submit" class="btn btn-danger"-->
-<!--                                                    onclick="return confirm('Are you sure ?')">DELETE-->
-<!--                                            </button>-->
-<!--                                        </form>-->
-<!--                                    </td>-->
                                 </tr>
                             <?php endforeach; ?>
 

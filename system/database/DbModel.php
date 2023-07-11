@@ -52,7 +52,7 @@ abstract class DbModel extends Model
 
     public static function update($params)
     {
-        $id = $_GET['id'];
+        $id = $params['id'];
         $name = $params['name'];
         $email = $params['email'];
         $gender = $params['gender'];
@@ -61,14 +61,6 @@ abstract class DbModel extends Model
         $statement = self::prepare("UPDATE $tableName SET name=\"$name\", email=\"$email\", gender=\"$gender\", status=\"$status\" WHERE id=$id");
         return $statement->execute();
     }
-
-//    public static function findAll()
-//    {
-//        $tableName = static::tableName();
-//        $statement = self::prepare("SELECT id, name, email, status, gender FROM $tableName");
-//        $statement->execute();
-//        return $statement->fetchAll(\PDO::FETCH_OBJ);
-//    }
     public static function findAll()
     {
         $currentPage = $_GET['page'] ?? 1;
@@ -86,9 +78,6 @@ abstract class DbModel extends Model
         $stmt->execute();
 
         return array($stmt->fetchAll(PDO::FETCH_ASSOC), $totalPages);
-//        $statement = self::prepare("SELECT id, name, email, status, gender FROM $tableName");
-//        $statement->execute();
-//        return $statement->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public static function delete()

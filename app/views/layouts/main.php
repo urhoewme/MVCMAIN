@@ -3,10 +3,6 @@
 use app\system\Application;
 
 
-//echo "<pre>";
-//var_dump(Application::$app->user);
-//echo "<pre>";
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,7 +27,7 @@ use app\system\Application;
                     <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/restapiusers">Customers REST</a>
+                    <a class="nav-link active" href="/api/customers">Customers REST</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/users">Customers DB</a>

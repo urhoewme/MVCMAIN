@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card mt-4">
                 <div class="card-header">
                     <h4>Customer Details
@@ -21,39 +21,41 @@
                 </div>
                 <div class="card-body">
                     <form action="/delete" method="post">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>Checkbox
-                                </th>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Gender</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Checkbox
+                                    </th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Gender</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                            <button name="delete_mux" type="submit" class="btn btn-danger mb-2"
-                                    onclick="return confirm('Are you sure ?')">DELETE
-                            </button>
-                            <tr>
-                                {% for param in name %}
-                                <td>
-                                    <input type="checkbox" name="record[]" value="{{ param.id }}">
-                                </td>
-                                <td>{{ param.id }}</td>
-                                <td>{{ param.name }}</td>
-                                <td>{{ param.email }}</td>
-                                <td>{{ param.status }}</td>
-                                <td>{{ param.gender }}</td>
-                                <td>
-                                    <a href="/edit?id={{ param.id }}" class="btn btn-primary">EDIT</a>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                <button name="delete_mux" type="submit" class="btn btn-danger mb-2"
+                                        onclick="return confirm('Are you sure ?')">DELETE
+                                </button>
+                                <tr>
+                                    {% for param in name %}
+                                    <td>
+                                        <input type="checkbox" name="record[]" value="{{ param.id }}">
+                                    </td>
+                                    <td>{{ param.id }}</td>
+                                    <td>{{ param.name }}</td>
+                                    <td>{{ param.email }}</td>
+                                    <td>{{ param.status }}</td>
+                                    <td>{{ param.gender }}</td>
+                                    <td>
+                                        <a href="/edit?id={{ param.id }}" class="btn btn-primary">EDIT</a>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </form>
                 </div>
             </div>

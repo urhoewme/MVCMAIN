@@ -11,38 +11,11 @@ use app\system\classes\Response;
 
 class SiteController extends Controller
 {
-    public function usersApi()
-    {
-        return $this->render('restapiusers');
-    }
-    public function home()
+    public function index()
     {
         $params = [
             'name' => 'Yauheni'
         ];
-        if ( (new CustomerSeeder())->seed() ) {
-            return $this->render('home', $params);
-        }
         return $this->render('home', $params);
     }
-
-    public function contact(Request $request, Response $response)
-    {
-        $contact = new ContactForm();
-        $contact->loadData($request->getBody());
-        if ($contact->validate() && $contact->send()) {
-            Application::$app->session->setFlash('success', 'Thanks for your feedback');
-            return $response->redirect('/contact');
-        }
-    }
-
-    public function renderContact()
-    {
-        $contact = new ContactForm();
-        return $this->render('contact', [
-            'model' => $contact
-        ]);
-    }
-
-
 }

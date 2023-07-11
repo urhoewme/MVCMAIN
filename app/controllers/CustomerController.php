@@ -13,14 +13,14 @@ use Twig\Loader\FilesystemLoader;
 
 
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
-    public function create(Request $request, Response $response)
+    public function index(Request $request, Response $response)
     {
         return $this->render('create');
     }
 
-    public function handleCreate(Request $request, Response $response)
+    public function create(Request $request, Response $response)
     {
         $customer = new Customer();
         $customer->loadData($request->getBody());
@@ -29,7 +29,7 @@ class UserController extends Controller
         }
     }
 
-    public function edit()
+    public function show()
     {
         $id = $_GET['id'];
         $customer = new Customer();
@@ -37,38 +37,31 @@ class UserController extends Controller
         return $this->render('edit', $params);
     }
 
-    public function editUpdate()
+    public function update(Request $request)
     {
-        $params = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'gender' => $_POST['gender'],
-            'status' => $_POST['status']
-        ];
+        $params = $request->getBody();
+        $params['id'] = $_GET['id'];
         $customer = new Customer();
         $customer->update($params);
         return (new Response())->redirect('/users');
     }
 
-    public function deleteUser()
+    public function destroy()
     {
         $customer = new Customer();
         $customer->delete();
         return (new Response())->redirect('/users');
     }
-    public function deleteChecked()
+    public function delete(Request $request, Response $response)
     {
+        if (!isset($_POST['record']) || !is_array($_POST['record']))
+        {
+            return $response->redirect('/users');
+        }
         $customer = new Customer();
         $customer->deleteMultiple();
-        return (new Response())->redirect('/users');
+        return $response->redirect('/users');
     }
-
-//    public function users()
-//    {
-//        $customer = new Customer();
-//        $params = $customer->findAll();
-//        return $this->render('users', $params);
-//    }
     public function users()
     {
         $loader = new FilesystemLoader( '../app/views');
@@ -80,6 +73,5 @@ class UserController extends Controller
         $params = $customer->findAll();
         $template = $twig->load('users.twig');
         return $template->render(['name' => $params[0], 'pages' => $params[1]]);
-
     }
 }

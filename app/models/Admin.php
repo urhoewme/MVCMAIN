@@ -1,8 +1,8 @@
 <?php
 namespace app\app\models;
-use app\system\classes\UserModel;
+use app\system\classes\AdminModel;
 
-class User extends UserModel
+class Admin extends AdminModel
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
