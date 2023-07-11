@@ -30,7 +30,7 @@ use app\system\Application;
                     <a class="nav-link active" href="/api/customers">Customers REST</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/users">Customers DB</a>
+                    <a class="nav-link active" href="/customers">Customers DB</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/contact">Contact</a>

@@ -40,26 +40,26 @@ class AuthController extends Controller
 
     public function register()
     {
-        $user = new Admin();
+        $admin = new Admin();
         $this->setLayout('auth');
         return $this->render('register', [
-            'model' => $user
+            'model' => $admin
         ]);
     }
 
     public function signUp(Request $request)
     {
-        $user = new Admin();
+        $admin = new Admin();
 
-        $user->loadData($request->getBody());
+        $admin->loadData($request->getBody());
 
-        if ($user->validate() && $user->save()) {
+        if ($admin->validate() && $admin->save()) {
             Application::$app->session->setFlash('success', 'Thanks for registration !');
             self::signIn($request, Application::$app->response);
             exit;
         }
         return $this->render('register', [
-            'model' => $user
+            'model' => $admin
         ]);
 
     }

@@ -20,15 +20,16 @@ $app->router->post('/api/customers/create', [CustomerApiController::class, 'stor
 $app->router->post('/api/customers/delete', [CustomerApiController::class, 'destroy']);
 $app->router->get('/api/customers/edit', [CustomerApiController::class, 'edit']);
 $app->router->post('/api/customers/edit', [CustomerApiController::class, 'update']);
+$app->router->get('/api/customer', [CustomerApiController::class, 'show']);
 
-$app->router->get('/users', [CustomerController::class, 'users']);
-$app->router->get('/create', [CustomerController::class, 'index']);
-$app->router->post('/create', [CustomerController::class, 'create']);
-$app->router->get('/edit', [CustomerController::class, 'show']);
-$app->router->post('/edit', [CustomerController::class, 'update']);
-
-$app->router->post('/delete', [CustomerController::class, 'destroy']);
-$app->router->post('/delete', [CustomerController::class, 'delete']);
+$app->router->get('/customers', [CustomerController::class, 'index']);
+$app->router->get('/customers/create', [CustomerController::class, 'new']);
+$app->router->post('/customers/create', [CustomerController::class, 'create']);
+$app->router->get('/customer/edit', [CustomerController::class, 'edit']);
+$app->router->post('/customer/edit', [CustomerController::class, 'update']);
+$app->router->get('/customer', [CustomerController::class, 'show']);
+$app->router->post('/customers/delete', [CustomerController::class, 'destroy']);
+$app->router->post('/customers/delete', [CustomerController::class, 'delete']);
 
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'signIn']);

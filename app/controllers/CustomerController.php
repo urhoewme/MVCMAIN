@@ -19,9 +19,30 @@ class CustomerController extends Controller
 
     public function __construct()
     {
-        $this->registerMiddleware(new AuthMiddleware(['users']));
+        $this->registerMiddleware(new AuthMiddleware(['index']));
     }
-    public function index(Request $request, Response $response)
+    public function index()
+    {
+        $loader = new FilesystemLoader( '../app/views');
+        $twig = new Environment($loader, [
+            'debug' => true,
+        ]);
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $customer = new Customer();
+        $params = $customer->findAll();
+        $template = $twig->load('customers.twig');
+        return $template->render(['name' => $params[0], 'pages' => $params[1]]);
+    }
+
+    public function show()
+    {
+        $id = $_GET['id'];
+        $customer = new Customer();
+        $params = $customer->findById($id);
+        return $this->render('show', $params);
+    }
+
+    public function new(Request $request, Response $response)
     {
         return $this->render('create');
     }
@@ -31,11 +52,11 @@ class CustomerController extends Controller
         $customer = new Customer();
         $customer->loadData($request->getBody());
         if ($customer->save()) {
-            $response->redirect('/users');
+            $response->redirect('/customers');
         }
     }
 
-    public function show()
+    public function edit()
     {
         $id = $_GET['id'];
         $customer = new Customer();
@@ -49,35 +70,22 @@ class CustomerController extends Controller
         $params['id'] = $_GET['id'];
         $customer = new Customer();
         $customer->update($params);
-        return (new Response())->redirect('/users');
-    }
-
-    public function destroy()
-    {
-        $customer = new Customer();
-        $customer->delete();
-        return (new Response())->redirect('/users');
+        return (new Response())->redirect('/customers');
     }
     public function delete(Request $request, Response $response)
     {
         if (!isset($_POST['record']) || !is_array($_POST['record']))
         {
-            return $response->redirect('/users');
+            return $response->redirect('/customers');
         }
         $customer = new Customer();
         $customer->deleteMultiple();
-        return $response->redirect('/users');
+        return $response->redirect('/customers');
     }
-    public function users()
+    public function destroy()
     {
-        $loader = new FilesystemLoader( '../app/views');
-        $twig = new Environment($loader, [
-            'debug' => true,
-        ]);
-        $twig->addExtension(new \Twig\Extension\DebugExtension());
         $customer = new Customer();
-        $params = $customer->findAll();
-        $template = $twig->load('users.twig');
-        return $template->render(['name' => $params[0], 'pages' => $params[1]]);
+        $customer->delete();
+        return (new Response())->redirect('/customers');
     }
 }

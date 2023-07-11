@@ -17,8 +17,15 @@ class CustomerController extends Controller
     }
     public function index()
     {
-        $users = APIHandler::connect('https://gorest.co.in/public/v2/users', 'get');
-        return $this->render('/api/customers', $users);
+        $customers = APIHandler::connect('https://gorest.co.in/public/v2/users', 'get');
+        return $this->render('/api/customers', $customers);
+    }
+
+    public function show()
+    {
+        $id = $_GET['id'];
+        $params = APIHandler::connect("https://gorest.co.in/public/v2/users/$id", 'get');
+        return $this->render('/api/show', $params);
     }
 
     public function create()
