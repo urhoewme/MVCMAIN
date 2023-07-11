@@ -40,6 +40,7 @@ class CustomerController extends Controller
     public function update(Request $request)
     {
         $params = $request->getBody();
+        $params['id'] = $_GET['id'];
         $customer = new Customer();
         $customer->update($params);
         return (new Response())->redirect('/users');
@@ -51,11 +52,15 @@ class CustomerController extends Controller
         $customer->delete();
         return (new Response())->redirect('/users');
     }
-    public function delete()
+    public function delete(Request $request, Response $response)
     {
+        if (!isset($_POST['record']) || !is_array($_POST['record']))
+        {
+            return $response->redirect('/users');
+        }
         $customer = new Customer();
         $customer->deleteMultiple();
-        return (new Response())->redirect('/users');
+        return $response->redirect('/users');
     }
     public function users()
     {

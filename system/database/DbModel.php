@@ -52,7 +52,7 @@ abstract class DbModel extends Model
 
     public static function update($params)
     {
-        $id = $_GET['id'];
+        $id = $params['id'];
         $name = $params['name'];
         $email = $params['email'];
         $gender = $params['gender'];
