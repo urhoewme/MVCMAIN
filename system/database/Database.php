@@ -7,14 +7,24 @@ use app\system\Application;
 class Database
 {
     public \PDO $pdo;
+    private static $instance = null;
 
-    public function __construct()
+    private function __construct()
     {
         $dsn = $_ENV['DB_DSN'];
         $user = $_ENV['DB_USER'];
         $password = $_ENV['DB_PASSWORD'];
         $this->pdo = new \PDO($dsn, $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    }
+
+    public static function getInstance()
+    {
+        if (self::$instance == null)
+        {
+            self::$instance = new Database();
+        }
+        return self::$instance;
     }
 
     public function applyMigrations()

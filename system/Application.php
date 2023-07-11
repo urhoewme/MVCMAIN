@@ -3,7 +3,7 @@
 namespace app\system;
 
 use app\app\models\Admin;
-use app\app\seeders\CustomerSeeder;
+use app\system\database\seeders\CustomerSeeder;
 use app\system\classes\Controller;
 use app\system\classes\Request;
 use app\system\classes\Response;
@@ -26,7 +26,6 @@ class Application
     public Database $db;
     public CustomerSeeder $customerSeeder;
     public static Application $app;
-    //TODO: remove recursive dependency
     public ?DbModel $user = null;
     public View $view;
     public ?Controller $controller = null;
@@ -40,7 +39,7 @@ class Application
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
-        $this->db = new Database();
+        $this->db = Database::getInstance();
 
 
         $primaryValue = $this->session->get('user');
