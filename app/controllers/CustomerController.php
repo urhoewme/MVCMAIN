@@ -8,6 +8,7 @@ use app\app\models\Customer;
 use app\system\classes\Controller;
 use app\system\classes\Request;
 use app\system\classes\Response;
+use app\system\middlewares\AuthMiddleware;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -15,6 +16,11 @@ use Twig\Loader\FilesystemLoader;
 
 class CustomerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->registerMiddleware(new AuthMiddleware(['users']));
+    }
     public function index(Request $request, Response $response)
     {
         return $this->render('create');

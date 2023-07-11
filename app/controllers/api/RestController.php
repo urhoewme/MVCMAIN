@@ -6,9 +6,15 @@ use app\system\classes\APIHandler;
 use app\system\classes\Controller;
 use app\system\classes\Request;
 use app\system\classes\Response;
+use app\system\middlewares\AuthMiddleware;
 
 class RestController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->registerMiddleware(new AuthMiddleware(['index']));
+    }
     public function index()
     {
         $users = APIHandler::connect('https://gorest.co.in/public/v2/users', 'get');
