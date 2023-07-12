@@ -19,7 +19,7 @@ class AuthController extends Controller
         $this->registerMiddleware(new AuthMiddleware(['profile']));
     }
 
-    public function index()
+    public function login()
     {
         $loginForm = new LoginForm();
         $this->setLayout('auth');
@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function customLogin(Request $request, Response $response)
+    public function signIn(Request $request, Response $response)
     {
         $loginForm = new LoginForm();
         $loginForm->loadData($request->getBody());
@@ -38,33 +38,33 @@ class AuthController extends Controller
         }
     }
 
-    public function registration()
+    public function register()
     {
-        $user = new Admin();
+        $admin = new Admin();
         $this->setLayout('auth');
         return $this->render('register', [
-            'model' => $user
+            'model' => $admin
         ]);
     }
 
-    public function customRegistration(Request $request)
+    public function signUp(Request $request)
     {
-        $user = new Admin();
+        $admin = new Admin();
 
-        $user->loadData($request->getBody());
+        $admin->loadData($request->getBody());
 
-        if ($user->validate() && $user->save()) {
+        if ($admin->validate() && $admin->save()) {
             Application::$app->session->setFlash('success', 'Thanks for registration !');
-            self::customLogin($request, Application::$app->response);
+            self::signIn($request, Application::$app->response);
             exit;
         }
         return $this->render('register', [
-            'model' => $user
+            'model' => $admin
         ]);
 
     }
 
-    public function signOut(Request $request, Response $response)
+    public function logOut(Request $request, Response $response)
     {
         $login = new Login();
         $login->logout();

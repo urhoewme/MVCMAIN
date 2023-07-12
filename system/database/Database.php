@@ -7,8 +7,9 @@ use app\system\Application;
 class Database
 {
     public \PDO $pdo;
+    private static $instance = null;
 
-    public function __construct()
+    private function __construct()
     {
         $dsn = $_ENV['DB_DSN'];
         $user = $_ENV['DB_USER'];
@@ -17,20 +18,29 @@ class Database
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
+    public static function getInstance()
+    {
+        if (self::$instance == null)
+        {
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
+
     public function applyMigrations()
     {
         $this->createMigrationsTable();
         $appliedMigrations = $this->getAppliedMigrations();
 
         $newMigrations = [];
-        $files = scandir(Application::$ROOT_DIR . '/migrations');
+        $files = scandir(Application::$ROOT_DIR . '/system/database/migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         foreach ($toApplyMigrations as $migration) {
             if ($migration === '.' || $migration === '..') {
                 continue;
             }
 
-            require_once Application::$ROOT_DIR . '/migrations/' . $migration;
+            require_once Application::$ROOT_DIR . '/system/database/migrations/' . $migration;
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className();
             $this->log("applying migration $migration");

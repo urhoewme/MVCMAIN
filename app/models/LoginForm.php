@@ -30,15 +30,15 @@ class LoginForm extends Model
     public function login()
     {
         $logger = new Login();
-        $user = Admin::findOne(['email' => $this->email]);
-        if (!$user) {
+        $admin = Admin::findOne(['email' => $this->email]);
+        if (!$admin) {
             $this->addError('email', 'Admin with this email does not exist');
             return false;
         }
-        if (!password_verify($this->password, $user->password)) {
+        if (!password_verify($this->password, $admin->password)) {
             $this->addError('password', 'Incorrect password');
             return false;
         }
-        return $logger->login($user);
+        return $logger->login($admin);
     }
 }

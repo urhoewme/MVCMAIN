@@ -53,12 +53,13 @@ abstract class DbModel extends Model
     public static function update($params)
     {
         $id = $params['id'];
-        $name = $params['name'];
-        $email = $params['email'];
-        $gender = $params['gender'];
-        $status = $params['status'];
         $tableName = static::tableName();
-        $statement = self::prepare("UPDATE $tableName SET name=\"$name\", email=\"$email\", gender=\"$gender\", status=\"$status\" WHERE id=$id");
+        $setClause = array();
+        foreach ($params as $key => $value) {
+            $setClause[] = "$key=\"$value\"";
+        }
+        $setClause = implode(',', $setClause);
+        $statement = self::prepare("UPDATE $tableName SET $setClause WHERE id=$id");
         return $statement->execute();
     }
     public static function findAll()

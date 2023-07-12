@@ -15,11 +15,11 @@
             <div class="card mt-4">
                 <div class="card-header">
                     <h4>Customer Details
-                        <a class="btn btn-primary float-end" href="/api/create">Add customer</a>
+                        <a class="btn btn-primary float-end" href="/api/customers/create">Add customer</a>
                     </h4>
                 </div>
                 <div class="card-body">
-
+                    <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -32,25 +32,26 @@
                             </thead>
                             <tbody>
                             <?php /** @var TYPE_NAME $params */
-                            foreach ($params as $user): ?>
+                            foreach ($params as $customer): ?>
                                 <tr>
-                                    <td><?= $user['id'] ?></td>
-                                    <td><?= $user['name'] ?></td>
-                                    <td><?= $user['email'] ?></td>
-                                    <td><?= $user['gender'] ?></td>
-                                    <td><?= $user['status'] ?></td>
+                                    <td><?= $customer['id'] ?></td>
+                                    <td><?= $customer['name'] ?></td>
+                                    <td><?= $customer['email'] ?></td>
+                                    <td><?= $customer['gender'] ?></td>
+                                    <td><?= $customer['status'] ?></td>
                                     <td>
-                                        <a href="/api/edit?id=<?= $user['id'] ?>" class="btn btn-primary">EDIT</a>
-                                        <form action="/api/delete" method="post">
-                                            <input hidden="hidden" name="id" type="text" value="<?= $user['id'] ?>">
+                                        <a href="/api/customers/edit?id=<?= $customer['id'] ?>" class="btn btn-primary">EDIT</a>
+                                        <form action="/api/customers/delete" method="post">
+                                            <input hidden="hidden" name="id" type="text" value="<?= $customer['id'] ?>">
                                             <button class="btn btn-danger" type="submit">DELETE</button>
                                         </form>
+                                        <a class="btn btn-info" href="/api/customer?id=<?= $customer['id'] ?>">SHOW</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
                         </table>
-
+                    </div>
                 </div>
             </div>
         </div>

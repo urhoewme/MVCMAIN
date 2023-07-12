@@ -16,7 +16,7 @@
             <div class="card mt-4">
                 <div class="card-header">
                     <h4>Customer Edit
-                        <a href="/users" class="btn btn-danger float-end">BACK</a>
+                        <a href="/customers" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
