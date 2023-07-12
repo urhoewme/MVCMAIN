@@ -33,14 +33,14 @@ class Database
         $appliedMigrations = $this->getAppliedMigrations();
 
         $newMigrations = [];
-        $files = scandir(Application::$ROOT_DIR . '/migrations');
+        $files = scandir(Application::$ROOT_DIR . '/system/database/migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         foreach ($toApplyMigrations as $migration) {
             if ($migration === '.' || $migration === '..') {
                 continue;
             }
 
-            require_once Application::$ROOT_DIR . '/migrations/' . $migration;
+            require_once Application::$ROOT_DIR . '/system/database/migrations/' . $migration;
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className();
             $this->log("applying migration $migration");
